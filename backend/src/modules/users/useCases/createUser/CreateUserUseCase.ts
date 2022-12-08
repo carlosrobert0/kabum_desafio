@@ -19,7 +19,7 @@ export class CreateUserUseCase {
     })
 
     if(userExists) {
-      throw new Error("User already exist")
+      throw new Error("User already exists")
     }
 
     const hashPassword = await hash(password, 10)
@@ -29,7 +29,7 @@ export class CreateUserUseCase {
         name,
         login,
         password: hashPassword,
-      }
+      },
     })
 
     return user
