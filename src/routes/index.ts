@@ -9,4 +9,5 @@ const routes = Router()
 routes.use(usersRoutes)
 routes.use(customersRoutes)
 routes.use(addressesRoutes)
+
 export { routes }
