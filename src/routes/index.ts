@@ -6,8 +6,8 @@ import { usersRoutes } from './users.routes'
 
 const routes = Router()
 
-routes.use(usersRoutes)
-routes.use(customersRoutes)
-routes.use(addressesRoutes)
+routes.use("/users", usersRoutes)
+routes.use("/customers", customersRoutes)
+routes.use("/addresses", addressesRoutes)
 
 export { routes }

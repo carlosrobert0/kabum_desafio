@@ -1,4 +1,4 @@
-import { prisma } from "../../../../database/prismaClient";
+import { AddressesRepository } from "../../repositories/implementations/AddressesRepository";
 
 interface CreateAddress {
   cep: string
@@ -11,6 +11,8 @@ interface CreateAddress {
 }
 
 export class CreateAddressUseCase {
+  constructor(private addressesRepository: AddressesRepository) { }
+
   async execute({
     cep,
     street,
@@ -20,40 +22,20 @@ export class CreateAddressUseCase {
     state,
     customer_id
   }: CreateAddress) {
-    const addressExists = await prisma.address.findFirst({
-      where: {
-        AND: {
-          cep: {
-            equals: cep,
-            mode: 'insensitive'
-          },
-          street: {
-            equals: street,
-            mode: 'insensitive'
-          },
-          number: {
-            equals: number
-          },
-        }
-      }
-    })
+    const addressExists = await this.addressesRepository.findByConditionalANDCepStreetNumber(cep, street, number)
 
     if (addressExists) {
       throw new Error("Address already exists")
     }
 
-    const address = await prisma.address.create({
-      data: {
-        cep,
-        street,
-        number,
-        neighborhood,
-        city,
-        state,
-        customer_id
-      }
+    await this.addressesRepository.create({
+      cep,
+      street,
+      number,
+      neighborhood,
+      city,
+      state,
+      customer_id
     })
-
-    return address
   }
 }

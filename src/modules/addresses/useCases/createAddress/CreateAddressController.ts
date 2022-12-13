@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { CreateAddressUseCase } from "./CreateAddressUseCase";
 
 export class CreateAddressController {
+  constructor(private createAddressUseCase: CreateAddressUseCase) {}
+
   async handle(request: Request, response: Response) {
     const {
       cep,
@@ -13,8 +15,7 @@ export class CreateAddressController {
       customer_id
     } = request.body
 
-    const createAddressUseCase = new CreateAddressUseCase()
-    const result = await createAddressUseCase.execute({
+    const result = await this.createAddressUseCase.execute({
       cep,
       street,
       number,

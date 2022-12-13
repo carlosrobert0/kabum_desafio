@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fieldReference"]
 }
 
 datasource db {
@@ -40,7 +41,7 @@ model Address {
   neighborhood String
   city         String
   state        String
-  customer     Customers @relation(fields: [customer_id], references: [id])
+  customer     Customers @relation(fields: [customer_id], references: [id], onDelete: Cascade)
   customer_id  String
   created_at   DateTime  @default(now())
   updated_at   DateTime  @default(now())

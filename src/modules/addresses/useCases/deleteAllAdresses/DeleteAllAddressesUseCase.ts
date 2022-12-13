@@ -1,11 +1,9 @@
 import { AddressesRepository } from "../../repositories/implementations/AddressesRepository";
 
-export class FindAllAddressesUseCase {
+export class DeleteAllAddressesUseCase {
   constructor(private addressesRepository: AddressesRepository) {}
 
   async execute() {
-    const addresses = this.addressesRepository.findAll()
-
-    return addresses
+    await this.addressesRepository.deleteAll()
   }
 }

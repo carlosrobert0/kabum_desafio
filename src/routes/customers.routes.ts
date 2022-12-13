@@ -1,14 +1,26 @@
 import { Router } from 'express'
 
-import { CreateCustomerController } from '../modules/customers/useCases/createCustomer/CreateCustomerController'
-import { FindAllCustomersController } from '../modules/customers/useCases/findAllCustomers/FindAllCustomersController'
+import { createCustomerController } from '../modules/customers/useCases/createCustomer'
+import { findAllCustomersController } from '../modules/customers/useCases/findAllCustomers'
+import { deleteAllCustomersController } from '../modules/customers/useCases/deleteAllCustomers'
+import { deleteCustomerByIdController } from '../modules/customers/useCases/deleteCustomerById'
 
 const customersRoutes = Router()
 
-const findAllCustomerController = new FindAllCustomersController()
-const createCustomerController = new CreateCustomerController()
+customersRoutes.get("/", (request, response) => {
+  return findAllCustomersController.handle(request, response)
+})
 
-customersRoutes.get("/customers", findAllCustomerController.handle)
-customersRoutes.post("/customer", createCustomerController.handle)
+customersRoutes.post("/", (request, response) => {
+  return createCustomerController.handle(request, response)
+})
+
+customersRoutes.delete("/", (request, response) => {
+  return deleteAllCustomersController.handle(request, response)
+})
+
+customersRoutes.delete("/:id", (request, response) => {
+  return deleteCustomerByIdController.handle(request, response)
+})
 
 export { customersRoutes }

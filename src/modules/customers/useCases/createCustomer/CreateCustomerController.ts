@@ -1,22 +1,27 @@
 import { Request, Response } from "express";
-import { CreateCustomerUseCase } from "./CreateCustomerUseCase";
 
+import { CreateCustomerUseCase } from "./CreateCustomerUseCase";
 export class CreateCustomerController {
+  constructor(private createCustomerUseCase: CreateCustomerUseCase){}
+
   async handle(request: Request, response: Response) {
-    const { 
-      name, 
-      birthDate, 
-      cpf, 
+    const {
+      name,
+      birthDate,
+      cpf,
       rg,
-      phone, 
-      address 
+      phone,
+      address
     } = request.body
 
-    const createCustomerUseCase = new CreateCustomerUseCase()
-    const result = await createCustomerUseCase.execute({
-      name, birthDate, cpf, rg, phone, address
-    })
+    try {
+      const result = await this.createCustomerUseCase.execute({
+        name, birthDate, cpf, rg, phone, address
+      })
 
-    return response.json(result)
+      return response.json(result)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
