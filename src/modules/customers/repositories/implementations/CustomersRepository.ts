@@ -1,5 +1,5 @@
 import { prisma } from "../../../../database/prismaClient"
-import { CreateCustomerDTO, ICustomersRepository } from "../ICustomersRepository"
+import { CustomerDTO, ICustomersRepository } from "../ICustomersRepository"
 
 export class CustomersRepository implements ICustomersRepository {
   private static INSTANCE: any
@@ -19,7 +19,7 @@ export class CustomersRepository implements ICustomersRepository {
     name, 
     phone,
     rg
-  }: CreateCustomerDTO): Promise<any> {
+  }: CustomerDTO): Promise<any> {
     if (address) {
       const customer = await prisma.customers.create({
         data: {
@@ -55,6 +55,9 @@ export class CustomersRepository implements ICustomersRepository {
           cpf,
           rg,
           phone
+        },
+        include: {
+          address: true
         }
       })
 
@@ -62,7 +65,7 @@ export class CustomersRepository implements ICustomersRepository {
     } 
   }
 
-  async findByCpf(cpf: string): Promise<any> {
+  async findByCpf(cpf: string): Promise<CustomerDTO | null> {
     const customer = await prisma.customers.findFirst({
       where: {
         cpf: {
@@ -76,6 +79,7 @@ export class CustomersRepository implements ICustomersRepository {
       return customer
     }
     
+    return null
   }
 
   async findAll(): Promise<any> {
@@ -100,5 +104,23 @@ export class CustomersRepository implements ICustomersRepository {
 
   async deleteAll(): Promise<void> {
     await prisma.customers.deleteMany()
+  }
+
+  async updateById(id: string, data: CustomerDTO): Promise<void> {
+    await prisma.customers.update({
+      where: {
+        id
+      },
+      data: {
+        name: data.name,
+        birthDate: data.birthDate,
+        cpf: data.cpf,
+        phone: data.phone,
+        rg: data.rg,
+      },
+      include: {
+        address: true
+      }
+    })
   }
 }

@@ -7,7 +7,7 @@ interface Address {
   state: string
 }
 
-interface CreateCustomerDTO {
+interface CustomerDTO {
   name: string
   birthDate: Date
   cpf: string
@@ -24,12 +24,12 @@ interface ICustomersRepository {
     cpf, 
     rg, 
     phone 
-  }: CreateCustomerDTO): Promise<void>;
-  findByCpf(cpf: string): Promise<any>; 
-  findAll(): Promise<CreateCustomerDTO[]>
+  }: CustomerDTO): Promise<void>;
+  findByCpf(cpf: string): Promise<CustomerDTO | null>; 
+  findAll(): Promise<CustomerDTO[]>
   deleteAll(): Promise<void>
   deleteById(id: string): Promise<void>
-  // updateByCpf(cpf: string): Promise<void>
+  updateById(id: string, data: CustomerDTO): Promise<void>
 }
 
-export { CreateCustomerDTO, ICustomersRepository }
+export { CustomerDTO, ICustomersRepository }

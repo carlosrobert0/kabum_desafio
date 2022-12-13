@@ -19,10 +19,12 @@ interface IAddressesRepository {
     customer_id 
   }: AddressDTO): Promise<void>;
   findAll(): Promise<AddressDTO[]>
+  findById(id: string): Promise<AddressDTO | null>; 
   findByConditionalANDCepStreetNumber(cep: string, street: string, number: number): Promise<any>
   deleteAll(): Promise<void>
   deleteAllAddressesByCustomerId(customer_id: string): Promise<void>
   deleteById(id: string): Promise<void>
+  updateById(id: string, data: AddressDTO): Promise<void>
 }
 
 export { AddressDTO, IAddressesRepository }

@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../src/modules/customers/useCases/deleteAllCustomers/index.ts"],"names":[],"mappings":";;;AAAA,8FAA6F;AAC7F,+EAA8E;AAC9E,yEAAwE;AAExE,IAAM,mBAAmB,GAAG,yCAAmB,CAAC,WAAW,EAAE,CAAA;AAC7D,IAAM,yBAAyB,GAAG,IAAI,qDAAyB,CAAC,mBAAmB,CAAC,CAAA;AACpF,IAAM,4BAA4B,GAAG,IAAI,2DAA4B,CAAC,yBAAyB,CAAC,CAAA;AAEvF,oEAA4B"}

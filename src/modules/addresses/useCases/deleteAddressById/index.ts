@@ -3,7 +3,7 @@ import { DeleteAddressByIdController } from "./DeleteAddressByIdController"
 import { DeleteAddressByIdUseCase } from "./DeleteAddressByIdUseCase"
 
 const addressesRepository = AddressesRepository.getInstance()
-const deleteAllAddressesUseCase = new DeleteAddressByIdUseCase(addressesRepository)
-const deleteAddressByIdController = new DeleteAddressByIdController(deleteAllAddressesUseCase)
+const deleteAddressByIdUseCase = new DeleteAddressByIdUseCase(addressesRepository)
+const deleteAddressByIdController = new DeleteAddressByIdController(deleteAddressByIdUseCase)
 
 export { deleteAddressByIdController }

@@ -87,4 +87,27 @@ export class AddressesRepository implements IAddressesRepository {
       },
     })
   }
+
+  async updateById(id: string, data: AddressDTO): Promise<void> {
+    await prisma.address.update({
+      where: {
+        id
+      },
+      data: data,
+    })
+  }
+
+  async findById(id: string): Promise<AddressDTO | null> {
+    const address = await prisma.address.findUnique({
+      where: {
+        id
+      }
+    })
+
+    if (address) {
+      return address
+    }
+    
+    return null
+  }
 }
