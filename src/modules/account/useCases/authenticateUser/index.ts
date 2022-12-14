@@ -4,7 +4,7 @@ import { AuthenticateUserController } from "./AuthenticateUserController"
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase"
 
 const usersRepository = UsersRepository.getInstance()
-const authenticaseUserUseCase = new AuthenticateUserUseCase(usersRepository)
-const authenticateUserController = new AuthenticateUserController(authenticaseUserUseCase)
+const authenticateUserUseCase = new AuthenticateUserUseCase(usersRepository)
+const authenticateUserController = new AuthenticateUserController(authenticateUserUseCase)
 
 export { authenticateUserController }

@@ -1,14 +1,19 @@
-
-interface CreateUserDTO {
+interface UserDTO {
   name: string;
   login: string;
   password: string;
 }
 
-interface IUserRepository {
-  create({ name, login, password }: CreateUserDTO): Promise<any>
-  findAll(): Promise<any>
+interface IUsersRepository {
+  create({ 
+    name, 
+    login,
+    password 
+  }: UserDTO): Promise<void>;
+
+  findAll(): Promise<UserDTO[]>
   findUserExists(login: string): Promise<any>
+  updateById(id: string, data: UserDTO): Promise<void>
 }
 
-export { CreateUserDTO, IUserRepository }
+export { UserDTO, IUsersRepository }

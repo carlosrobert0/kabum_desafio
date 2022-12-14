@@ -8,33 +8,35 @@ import { deleteAddressByIdController } from "../modules/addresses/useCases/delet
 import { updateAddressByIdController } from "../modules/addresses/useCases/updateAddressById"
 import { findAddressByIdController } from "../modules/addresses/useCases/findAllAddressById"
 
+import { ensureAuthenticateUser } from "../middlewares/ensureAuthenticateUser"
+
 const addressesRoutes = Router()
 
-addressesRoutes.get("/", (request, response) => {
+addressesRoutes.get("/", ensureAuthenticateUser, (request, response) => {
   findAllAddressesController.handle(request, response)
 })
 
-addressesRoutes.get("/:id", (request, response) => {
+addressesRoutes.get("/:id", ensureAuthenticateUser, (request, response) => {
   findAddressByIdController.handle(request, response)
 })
 
-addressesRoutes.post("/", (request, response) => {
+addressesRoutes.post("/", ensureAuthenticateUser, (request, response) => {
   createAddressController.handle(request, response)
 })
 
-addressesRoutes.delete("/", (request, response) => {
+addressesRoutes.delete("/", ensureAuthenticateUser, (request, response) => {
   return deleteAllAddressesController.handle(request, response)
 })
 
-addressesRoutes.delete("/:id", (request, response) => {
+addressesRoutes.delete("/:id", ensureAuthenticateUser, (request, response) => {
   return deleteAddressByIdController.handle(request, response)
 })
 
-addressesRoutes.delete("/:customer_id", (request, response) => {
+addressesRoutes.delete("/:customer_id", ensureAuthenticateUser, (request, response) => {
   return deleteAllAddressesByCustomerIdController.handle(request, response)
 })
 
-addressesRoutes.put("/:id", (request, response) => {
+addressesRoutes.put("/:id", ensureAuthenticateUser, (request, response) => {
   return updateAddressByIdController.handle(request, response)
 })
 
