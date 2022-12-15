@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import { Header } from "../../components/Header";
+import { HeaderAccount } from "../../components/HeaderAccount";
 import { LayoutContainer } from "./styles";
 
-export function DefaultLayout() {
+export function AccountLayout() {
   return (
     <LayoutContainer>
-      <Header />
+      <HeaderAccount />
       <Outlet />
     </LayoutContainer>
   )
