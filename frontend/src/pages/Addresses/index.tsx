@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useAuth } from "../../hooks/auth";
-import { api } from "../../services/api";
+
 import { useAddresses } from "../../services/hooks/useAddresses";
+import { useAddressesByCustomerId } from "../../services/hooks/useAddressesByCustomerId";
 import { AddressesContainer, AddressesList } from "./styles";
 
 interface Address {
@@ -17,9 +16,16 @@ interface Address {
 }
 
 export function Addresses() {
-  const { id } = useParams()
+  const { id } = useParams() 
+  let addresses: any
 
-  const { data } = useAddresses()
+  if ( id ) {
+    const addressData = useAddressesByCustomerId(id)
+    addresses = addressData
+  } else {
+    const { data } = useAddresses()
+    addresses = data
+  }
 
   return (
     <AddressesContainer>
@@ -40,7 +46,7 @@ export function Addresses() {
           </thead>
           <tbody>
             {
-              data?.map((address: Address) => {
+              addresses?.data?.map((address: Address) => {
                 return (
                   <tr key={address.id}>
                     <td>{address.street}</td>

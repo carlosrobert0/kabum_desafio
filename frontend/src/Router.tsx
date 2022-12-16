@@ -19,7 +19,7 @@ export function Router() {
         <Route path="/customers" element={<Protected><Customers /></Protected>} />
         <Route path="/customer/create" element={<Protected><CreateCustomer /></Protected>} />
         <Route path="/addresses" element={<Protected><Addresses /></Protected>} />
-        <Route path="/addresses/:id" element={<Protected><Addresses /></Protected>} />
+        <Route path="/addresses/customerId/:id" element={<Protected><Addresses /></Protected>} />
       </Route>
     </Routes>
   )

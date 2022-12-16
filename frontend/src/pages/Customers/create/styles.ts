@@ -110,7 +110,7 @@ export const ButtonSubmit = styled.button`
   color: ${({ theme }) => theme['gray-100']};
 
   &:hover {
-    transition: all 0.5s;
+    transition: all 0.2s;
     background: ${({ theme }) => theme['orange-300']};
   }
 
@@ -120,6 +120,6 @@ export const ButtonSubmit = styled.button`
   }
 
   &:not(:disabled):hover {
-    background: ${({ theme }) => theme['orange-700']};
+    background: ${({ theme }) => theme['orange-300']};
   }
 `
