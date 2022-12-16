@@ -15,7 +15,7 @@ const schema = yup.object({
   name: yup.string().required('O nome é obrigatório.'),
   login: yup.string().required('O login é obrigatório.'),
   password: yup.string().required('A senha é obrigatória.'),
-  confirmPassword: yup.string().required('A confirmação da senha é obrigatória.')
+  confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'As senhas não conferem.')
 }).required();
 
 export function Register() {
@@ -25,7 +25,6 @@ export function Register() {
 
   async function handleCreateUser({ name, login, password, confirmPassword }: FormData) {
     event?.preventDefault()
-
     try {
       
     } catch (error) {
@@ -45,6 +44,7 @@ export function Register() {
             name="name"
             type="text"
             placeholder="Nome"
+            autoFocus
           />
           <label
             htmlFor="name"

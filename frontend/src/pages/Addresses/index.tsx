@@ -1,9 +1,29 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
+import { api } from "../../services/api";
+import { useAddresses } from "../../services/hooks/useAddresses";
 import { AddressesContainer, AddressesList } from "./styles";
 
+interface Address {
+  id: string;
+  street: string;
+  number: number;
+  cep: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  customer_id: string;
+}
+
 export function Addresses() {
+  const { id } = useParams()
+
+  const { data } = useAddresses()
+
   return (
     <AddressesContainer>
-      <h1>Endereços</h1>
+      <h1>ENDEREÇOS</h1>
 
       <AddressesList>
         <table>
@@ -19,42 +39,21 @@ export function Addresses() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>Concluido</td>
-              <td>Concluido</td>
-              <td>Concluido</td>
-              <td>Concluido</td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>Concluido</td>
-              <td>Concluido</td>
-              <td>Concluido</td>
-              <td>Concluido</td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>Concluido</td>
-              <td>Concluido</td>
-              <td>Concluido</td>
-              <td>Concluido</td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>Concluido</td>
-              <td>Concluido</td>
-              <td>Concluido</td>
-              <td>Concluido</td>
-            </tr>
+            {
+              data?.map((address: Address) => {
+                return (
+                  <tr key={address.id}>
+                    <td>{address.street}</td>
+                    <td>{address.number}</td>
+                    <td>{address.neighborhood}</td>
+                    <td>{address.cep}</td>
+                    <td>{address.city}</td>
+                    <td>{address.state}</td>
+                    <td>{address.customer_id.slice(0, 8)}</td>
+                  </tr>
+                )
+              })
+            }
           </tbody>
         </table>
       </AddressesList>

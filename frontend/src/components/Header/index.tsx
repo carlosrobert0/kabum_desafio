@@ -7,7 +7,7 @@ import logo from '../../assets/logo.png'
 export function Header() {
   return (
     <HeaderContainer>
-      <img src={logo}  alt="logo kabum" width={24} height={24} />
+      <img src={logo}  alt="logo kabum" width={32} height={32} />
       <nav>
         <NavLink to="/customers" title="Clientes" end>
           <Users size={24} />

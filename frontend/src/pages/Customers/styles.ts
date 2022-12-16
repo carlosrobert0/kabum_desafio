@@ -50,13 +50,18 @@ export const CustomersList = styled.div`
       line-height: 1.6;
 
       &:first-child {
-        width: 32%;
+        width: 25%;
         padding-left: 1.5rem;
       }
 
       &:last-child {
-        padding-right: 1.5rem;
+        padding-left: 2.8rem;
       }
     }
+  }
+
+  a {
+    color: ${({ theme }) => theme["orange-300"]};
+    text-decoration: none;
   }
 `

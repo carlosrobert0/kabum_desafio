@@ -5,8 +5,8 @@ export const LoginContainer = styled.div`
   padding: 3.5rem;
 
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: start;
+  justify-content: start;
   flex-direction: column;
 
   h1 {
@@ -16,8 +16,16 @@ export const LoginContainer = styled.div`
   }
 
   form {
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+
+    hr {
+      width: 1px;
+      opacity: 0.1;
+      margin-top: 5%;
+      height: 24rem;
+    }
   }
 
   span {
@@ -75,6 +83,11 @@ export const WrapperInput = styled.div`
     line-height: 1.25rem;
     color: ${({ theme }) => theme['gray-100']};
   }
+
+  p {
+    color: ${({ theme }) => theme["red-500"]};
+    opacity: 0.9;
+  }
 `
 
 export const ButtonSubmit = styled.button`
@@ -95,6 +108,11 @@ export const ButtonSubmit = styled.button`
 
   background-color: ${({ theme }) => theme['orange-500']};
   color: ${({ theme }) => theme['gray-100']};
+
+  &:hover {
+    transition: all 0.5s;
+    background: ${({ theme }) => theme['orange-300']};
+  }
 
   &:disabled {
     opacity: 0.7;

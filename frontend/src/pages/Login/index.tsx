@@ -4,8 +4,11 @@ import * as yup from "yup";
 
 import { ButtonSubmit, LoginContainer } from "./styles";
 import { SignIn } from "phosphor-react";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { WrapperInput } from "../Register/styles";
+import { api } from "../../services/api";
+import { useAuth } from "../../hooks/auth";
+import { useEffect } from "react";
 
 interface FormData {
   login: string;
@@ -18,22 +21,29 @@ const schema = yup.object({
 }).required();
 
 export function Login() {
+  const token = localStorage.getItem('@Auth:token')
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: yupResolver(schema)
   });
-
-
+  const { signIn } = useAuth()
+  const navigate = useNavigate()
   
   async function handleSign({ login, password }: FormData) {
-    event?.preventDefault()
-
     try {
-      
+      await signIn({login, password})
+
+      navigate('/customers')
     } catch (error) {
-      
+      console.log(error)
     }
   }
 
+  useEffect(() => {
+    if (token) {
+      navigate('/customers')
+    }
+  }, [])
+  
   return (
     <LoginContainer>
       <h1>FAZER LOGIN</h1>
@@ -46,6 +56,7 @@ export function Login() {
             name="login"
             type="text"
             placeholder="Digite seu login"
+            autoFocus
           />
           <label
             htmlFor="login"
