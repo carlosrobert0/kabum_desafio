@@ -23,8 +23,9 @@ export interface Customer {
 
 const token = localStorage.getItem('@Auth:token')
 
-export async function getCustomers(): Promise<Customer[]> {
-  const response = await api.get("/customers", {
+
+export async function getCustomers(id: string): Promise<Customer[]> {
+  const response = await api.get(`/customers/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -33,6 +34,6 @@ export async function getCustomers(): Promise<Customer[]> {
   return response.data
 }
 
-export function useCustomers() {
-  return useQuery('customers', getCustomers)
+export function useCustomerById(id: string) {
+  return useQuery('customerById', () => getCustomers(id))
 }

@@ -20,8 +20,9 @@ const schema = yup.object({
   password: yup.string().required('A senha é obrigatória.'),
 }).required();
 
+const token = localStorage.getItem('@Auth:token')
+
 export function Login() {
-  const token = localStorage.getItem('@Auth:token')
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: yupResolver(schema)
   });
@@ -34,15 +35,9 @@ export function Login() {
 
       navigate('/customers')
     } catch (error) {
-      console.log(error)
+      
     }
   }
-
-  useEffect(() => {
-    if (token) {
-      navigate('/customers')
-    }
-  }, [])
   
   return (
     <LoginContainer>

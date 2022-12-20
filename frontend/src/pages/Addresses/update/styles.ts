@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LoginContainer = styled.div`
+export const AddressContainer = styled.div`
   flex: 1;
   padding: 3.5rem;
 
@@ -15,13 +15,6 @@ export const LoginContainer = styled.div`
     margin-bottom: 2.5rem;
   }
 
-  h3 {
-    font-size: 0.875rem;
-    margin-top: -57px;
-    color: ${({ theme }) => theme["gray-100"]};
-    margin-bottom: 2.5rem;
-  }
-
   form {
     width: 100%;
     display: flex;
@@ -32,6 +25,11 @@ export const LoginContainer = styled.div`
       opacity: 0.1;
       margin-top: 5%;
       height: 24rem;
+    }
+
+    h3 {
+      font-size: 0.875rem;
+      color: ${({ theme }) => theme["gray-100"]};
     }
   }
 
@@ -106,8 +104,7 @@ export const ButtonSubmit = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1rem;
-
+  margin-top: 2.5rem;
   font-weight: bold;
 
   cursor: pointer;
@@ -127,5 +124,46 @@ export const ButtonSubmit = styled.button`
 
   &:not(:disabled):hover {
     background: ${({ theme }) => theme['orange-300']};
+  }
+`
+
+export const SelectInput = styled.select`
+  width: 26rem;
+  margin-top: 2.5rem;
+  padding: 1rem;
+  text-align: left;
+  color: ${({ theme }) => theme["gray-100"]};
+  font-size: 1rem;
+  overflow-y: hidden;
+  line-height: 1.6;
+  border: 1px solid ${({ theme }) => theme["gray-800"]};
+  background: ${({ theme }) => theme["gray-700"]};
+  color: ${({ theme }) => theme['gray-100']};
+  border-radius: 0.215rem;
+
+  &:first-child {
+    border-top-left-radius: 8px;
+    padding-left: 1.5rem;
+  }
+  
+  &:last-child {
+    border-top-right-radius: 8px;
+    padding-left: 1.5rem;
+  }
+  
+  option {
+    height: 3rem;
+    border-bottom: 1px solid ${({ theme }) => theme["gray-600"]};
+    border-top: 1px solid ${({ theme }) => theme["gray-600"]};
+    color: ${({ theme }) => theme['gray-300']};
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    justify-content: space-between;
+
+    &:hover {
+      transform: all 0.5s;
+      background-color: ${({ theme }) => theme["orange-100"]};
+    }
   }
 `

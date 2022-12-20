@@ -7,8 +7,10 @@ import logo from '../../assets/logo.png'
 export function HeaderAccount() {
   return (
     <HeaderContainer>
-      <img src={logo} alt="logo kabum" width={32} height={32} />
-      
+      <NavLink to="/" title="Login" end>
+        <img src={logo} alt="logo kabum" width={32} height={32} />
+      </NavLink>
+
       <nav>
         <NavLink to="/" title="Logar" end>
           <SignIn size={24} />

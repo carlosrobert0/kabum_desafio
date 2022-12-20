@@ -10,7 +10,6 @@ export async function getAddressesByCustomerId(customer_id: string) {
     }
   })
 
-  console.log(response.data)
   return response.data
 }
 

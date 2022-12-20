@@ -3,13 +3,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
 import { ButtonSubmit, LoginContainer, WrapperInput } from "./styles";
-
-interface FormData {
-  name: string;
-  login: string;
-  password: string;
-  confirmPassword: string;
-}
+import { api } from "../../services/api";
+import { CreateUser, useCreateUser } from "../../services/hooks/useCreateUser";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
   name: yup.string().required('O nome é obrigatório.'),
@@ -19,17 +15,18 @@ const schema = yup.object({
 }).required();
 
 export function Register() {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, formState: { errors } } = useForm<CreateUser>({
     resolver: yupResolver(schema)
   });
 
-  async function handleCreateUser({ name, login, password, confirmPassword }: FormData) {
-    event?.preventDefault()
-    try {
-      
-    } catch (error) {
-      
-    }
+  const createUser = useCreateUser()
+
+  const navigate = useNavigate()
+  
+  async function handleCreateUser(user: CreateUser) {
+    await createUser.mutateAsync(user)
+    
+    navigate("/")
   }
 
   return (
@@ -94,7 +91,7 @@ export function Register() {
           <p>{errors.confirmPassword?.message}</p>
         </WrapperInput>
 
-        <ButtonSubmit disabled type="submit">
+        <ButtonSubmit type="submit">
           CONTINUAR
         </ButtonSubmit>
       </form>

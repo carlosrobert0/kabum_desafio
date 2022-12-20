@@ -1,11 +1,17 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-import { ButtonSubmit, LoginContainer, WrapperInput } from "./styles";
 import { api } from "../../../services/api";
-import { useMutation } from "react-query";
-import { Customer } from "../../../services/hooks/useCustomers";
+import { Address, Customer } from "../../../services/hooks/useCustomers";
+
+import { ButtonSubmit, LoginContainer, WrapperInput } from "./styles";
+import { useNavigate } from "react-router-dom";
+import { queryClient } from "../../../services/queryClient";
+import { useCreateCustomer } from "../../../services/hooks/useCreateCustomer";
+import { Spinner } from "phosphor-react";
+import { useState } from "react";
 
 const schema = yup.object({
   name: yup.string().required('O nome é obrigatório.'),
@@ -15,49 +21,27 @@ const schema = yup.object({
   rg: yup.string().required('O RG é obrigatório.'),
 }).required();
 
-const token = localStorage.getItem('@Auth:token')
+interface CreateCustomer extends Omit<Customer, 'id'>, Omit<Address, 'id'> { }
 
 export function CreateCustomer() {
-  const createUser = useMutation(async ({
-    name,
-    birthDate,
-    cpf,
-    phone,
-    rg,
-    address
-  }: Omit<Customer, 'id'>) => {
-    await api.post('customers', {
-      name,
-      birthDate,
-      cpf,
-      phone,
-      rg,
-      address
-    }, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-  })
-
-  const { register, handleSubmit, formState: { errors } } = useForm<Customer>({
+  const { register, handleSubmit, formState: { errors } } = useForm<CreateCustomer>({
     resolver: yupResolver(schema)
   });
+  const [isLoading, setIsLoading] = useState(false)
 
-  async function handleCreateUser({
-    name,
-    birthDate,
-    cpf,
-    phone,
-    rg,
-    address
-  }: Omit<Customer, 'id'>) {
+  const navigate = useNavigate()
+  const createCustomer = useCreateCustomer()
+
+  async function handleCreateCustomer(customer: CreateCustomer) {
     try {
-      await createUser.mutateAsync({
-        name, birthDate, cpf, phone, rg, address
-      })
+      setIsLoading(true)
+      await createCustomer.mutateAsync(customer)
+
+      navigate('/customers')
     } catch (error) {
-      console.log(error)
+      
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -65,7 +49,7 @@ export function CreateCustomer() {
     <LoginContainer>
       <h1>CRIAR CLIENTE</h1>
 
-      <form onSubmit={handleSubmit(handleCreateUser)}>
+      <form onSubmit={handleSubmit(handleCreateCustomer)}>
         <div>
           <WrapperInput>
             <input
@@ -136,15 +120,13 @@ export function CreateCustomer() {
             >Telefone *</label>
             <p>{errors.phone?.message}</p>
           </WrapperInput>
-
-          <ButtonSubmit type="submit">
-            CONTINUAR
-          </ButtonSubmit>
         </div>
 
         <hr />
 
-        {/* <div>
+        <div>
+
+          <h3>ADICIONAR NOVO ENDEREÇO</h3>
           <WrapperInput>
             <input
               {...register("street")}
@@ -228,7 +210,11 @@ export function CreateCustomer() {
             >Estado</label>
             <p>{errors.state?.message}</p>
           </WrapperInput>
-        </div> */}
+
+          <ButtonSubmit type="submit">
+            { isLoading ? <Spinner size={24} /> : "CONTINUAR" }
+          </ButtonSubmit>
+        </div>
       </form>
     </LoginContainer>
   )

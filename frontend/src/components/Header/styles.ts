@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
-display: flex;
+  display: flex;
   align-items: center;
   justify-content: space-between;
 
@@ -24,10 +24,31 @@ display: flex;
 
       &:hover {
         border-bottom: 3px solid ${({ theme }) => theme["orange-500"]};
+        transition: all 0.2s;
       }
 
       &.active {
         color: ${({ theme }) => theme["orange-500"]};
+      }
+    }
+
+    button {
+      width: 3rem;
+      height: 3rem;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer; 
+
+      color: ${({ theme }) => theme["gray-500"]};
+
+      border: 0;
+      border-bottom: 3px solid transparent;
+
+      &:hover {
+        border-bottom: 3px solid ${({ theme }) => theme["gray-500"]};
+        transition: all 0.2s;
       }
     }
   }

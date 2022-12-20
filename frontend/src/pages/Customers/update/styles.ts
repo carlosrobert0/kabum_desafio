@@ -15,13 +15,6 @@ export const LoginContainer = styled.div`
     margin-bottom: 2.5rem;
   }
 
-  h3 {
-    font-size: 0.875rem;
-    margin-top: -57px;
-    color: ${({ theme }) => theme["gray-100"]};
-    margin-bottom: 2.5rem;
-  }
-
   form {
     width: 100%;
     display: flex;
@@ -108,6 +101,7 @@ export const ButtonSubmit = styled.button`
   justify-content: center;
   margin-top: 1rem;
 
+  gap: 0.5rem;
   font-weight: bold;
 
   cursor: pointer;

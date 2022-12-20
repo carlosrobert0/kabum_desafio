@@ -74,6 +74,11 @@ export const WrapperInput = styled.div`
     line-height: 1.25rem;
     color: ${({ theme }) => theme['gray-100']};
   }
+
+  p {
+    color: ${({ theme }) => theme["red-500"]};
+    opacity: 0.9;
+  }
 `
 
 export const ButtonSubmit = styled.button`

@@ -100,8 +100,10 @@ export const ButtonSubmit = styled.button`
     opacity: 0.7;
     cursor: not-allowed;
   }
-
+  
   &:not(:disabled):hover {
-    background: ${({ theme }) => theme['orange-700']};
+    background: ${({ theme }) => theme['orange-300']};
+    transition: all 0.2s;
+    border: 0;
   }
 `

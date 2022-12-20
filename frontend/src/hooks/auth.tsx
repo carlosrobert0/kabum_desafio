@@ -13,7 +13,7 @@ interface AuthProvider {
 
 interface IAuthContextData {
   signIn({ login, password }: SignInCredentials): Promise<void>;
-  signOut(): Promise<void>;
+  signOut(): void;
 }
 
 interface SignInCredentials {
@@ -26,8 +26,9 @@ const AuthContext = createContext({} as IAuthContextData)
 function AuthProvider({ children }: AuthProvider) {
   const navigate = useNavigate()
 
-  async function signOut() {
-    localStorage.clear()
+  function signOut() {
+    localStorage.removeItem('@Auth:token')
+    navigate('/')
   }
 
   async function signIn({ login, password }: SignInCredentials) {
@@ -38,11 +39,13 @@ function AuthProvider({ children }: AuthProvider) {
       })
 
       localStorage.setItem('@Auth:token', response.data)
-      api.defaults.headers['Authorization'] = `Bearer ${response.data}`
+      
+      const token = localStorage.getItem('@Auth:token')
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
       navigate("/customers")
     } catch (error) {
-      console.log(error)
+      
     }
   }
 

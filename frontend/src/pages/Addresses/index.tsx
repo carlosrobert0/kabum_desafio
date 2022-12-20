@@ -1,7 +1,9 @@
-import { useParams } from "react-router-dom";
+import { Pencil, Plus, Trash } from "phosphor-react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 import { useAddresses } from "../../services/hooks/useAddresses";
 import { useAddressesByCustomerId } from "../../services/hooks/useAddressesByCustomerId";
+import { useDeleteAddressById } from "../../services/hooks/useDeleteAddressById";
 import { AddressesContainer, AddressesList } from "./styles";
 
 interface Address {
@@ -16,20 +18,35 @@ interface Address {
 }
 
 export function Addresses() {
-  const { id } = useParams() 
+  const navigate = useNavigate()
+  const { id } = useParams()
   let addresses: any
 
-  if ( id ) {
-    const addressData = useAddressesByCustomerId(id)
-    addresses = addressData
-  } else {
-    const { data } = useAddresses()
+  if (id) {
+    const { data } = useAddressesByCustomerId(id)
     addresses = data
+  } else {
+    const  { data } = useAddresses()
+    addresses = data
+  }
+
+  async function modalDeleteAddress(id: string) {
+    let response = confirm("Deseja excluir o endereço?")
+    if (response) {
+      await useDeleteAddressById(id)
+    }
   }
 
   return (
     <AddressesContainer>
-      <h1>ENDEREÇOS</h1>
+      <div>
+        <h1>ENDEREÇOS</h1>
+        <div>
+          <NavLink to={`/address/create/${id}`} title="NOVO ENDEREÇO" end>
+            <Plus size={24} />
+          </NavLink>
+        </div>
+      </div>
 
       <AddressesList>
         <table>
@@ -42,25 +59,51 @@ export function Addresses() {
               <th>Cidade</th>
               <th>Estado</th>
               <th>Cliente</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
-          <tbody>
-            {
-              addresses?.data?.map((address: Address) => {
-                return (
-                  <tr key={address.id}>
-                    <td>{address.street}</td>
-                    <td>{address.number}</td>
-                    <td>{address.neighborhood}</td>
-                    <td>{address.cep}</td>
-                    <td>{address.city}</td>
-                    <td>{address.state}</td>
-                    <td>{address.customer_id.slice(0, 8)}</td>
-                  </tr>
-                )
-              })
-            }
-          </tbody>
+          {addresses?.length > 0 ? (
+            <tbody>
+              {
+                addresses?.map((address: Address) => {
+                  return (
+                    <tr key={address.id}>
+                      <td>{address.street}</td>
+                      <td>{address.number}</td>
+                      <td>{address.neighborhood}</td>
+                      <td>{address.cep}</td>
+                      <td>{address.city}</td>
+                      <td>{address.state}</td>
+                      <td>{address.customer_id.slice(0, 8)}</td>
+                      <td>
+                        <NavLink to={`/addresses/update/${address.id}`}>
+                          <Pencil size={16} />
+                        </NavLink>
+                      </td>
+                      <td>
+                        <button onClick={() => modalDeleteAddress(address.id)}>
+                          <Trash size={16} />
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                })
+              }
+            </tbody>
+          ) :
+            <tr>
+              <td></td>
+              <td></td>
+              <td><span><p>Sem registros de endereços.</p></span></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          }
         </table>
       </AddressesList>
     </AddressesContainer>

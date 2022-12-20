@@ -11,6 +11,37 @@ export const AddressesContainer = styled.div`
     font-size: 1.5rem;
     color: ${({ theme }) => theme["orange-500"]}
   }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    div {
+      a {
+        color: ${({ theme }) => theme["gray-500"]};
+        width: 3rem;
+        height: 3rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      
+        color: ${({ theme }) => theme["gray-100"]};
+
+        border-top: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+
+        &:hover {
+          border-bottom: 3px solid ${({ theme }) => theme["orange-500"]};
+        }
+
+        &.active {
+          color: ${({ theme }) => theme["orange-500"]};
+        }
+      } 
+    }
+  }
 `
 
 export const AddressesList = styled.div`
@@ -18,10 +49,32 @@ export const AddressesList = styled.div`
   overflow: auto;
   margin-top: 2rem;
 
+  button {
+    background: inherit;
+    border: 0;
+    color: ${({ theme }) => theme["gray-100"]};
+    align-items: center;
+    cursor: pointer;
+    
+    &:hover {
+      color: ${({ theme }) => theme["red-500"]};
+      transition: all 0.2s;
+    }
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
     min-width: 600px;
+
+    span {
+      width: 100%;
+      margin-left: 50px;
+      height: 5rem;
+      display: flex;      
+      justify-content: center;
+      align-items: center;
+    }
 
     th {
       background-color: ${({ theme }) => theme["gray-600"]};
@@ -35,10 +88,10 @@ export const AddressesList = styled.div`
         border-top-left-radius: 8px;
         padding-left: 1.5rem;
       }
-
+      
       &:last-child {
         border-top-right-radius: 8px;
-        padding-right: 1.5rem;
+        padding-left: 1.5rem;
       }
     }
 
@@ -50,12 +103,24 @@ export const AddressesList = styled.div`
       line-height: 1.6;
 
       &:first-child {
-        width: 28%;
+        width: 20%;
         padding-left: 1.5rem;
       }
 
       &:last-child {
-        padding-right: 1.5rem;
+        align-items: center;
+        justify-content: center;
+        padding-left: 0.2rem;
+      }
+    }
+
+    a {
+      color: ${({ theme }) => theme["gray-100"]};
+      text-decoration: none;
+
+      &:hover {
+        color: ${({ theme }) => theme["orange-500"]};
+        transition: all 0.2s;
       }
     }
   }
