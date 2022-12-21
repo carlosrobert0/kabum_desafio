@@ -5,7 +5,9 @@ export class FindAllCustomersController {
   constructor(private findAllCustomersUseCase: FindAllCustomersUseCase) {}
 
   async handle(request: Request, response: Response) {
-    const result = await this.findAllCustomersUseCase.execute()
+    const { id_user } = request
+
+    const result = await this.findAllCustomersUseCase.execute(id_user)
 
     return response.json(result)
   }

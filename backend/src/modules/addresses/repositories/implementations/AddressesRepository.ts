@@ -5,19 +5,19 @@ export class AddressesRepository implements IAddressesRepository {
   private static INSTANCE: any
 
   public static getInstance(): any {
-    if(!AddressesRepository.INSTANCE) {
+    if (!AddressesRepository.INSTANCE) {
       AddressesRepository.INSTANCE = new AddressesRepository()
     }
 
     return AddressesRepository.INSTANCE
   }
 
-  async create({ 
-    cep, 
-    street, 
-    number, 
-    neighborhood, 
-    city, 
+  async create({
+    cep,
+    street,
+    number,
+    neighborhood,
+    city,
     state,
     customer_id
   }: AddressDTO
@@ -35,8 +35,28 @@ export class AddressesRepository implements IAddressesRepository {
     })
   }
 
-  async findAll(): Promise<any> {
-    return await prisma.address.findMany()
+  async findAll(id_user: string): Promise<any> {
+    return await prisma.address.findMany({
+      where: {
+        customer: {
+          userId: id_user
+        }
+      }
+    })
+  }
+
+  async findAllByCustomerId(customer_id: string): Promise<any> {
+    const addresses = await prisma.address.findMany({
+      where: {
+        customer_id: {
+          equals: customer_id,
+          mode: 'insensitive',
+        },
+      },
+    })
+
+    
+    return addresses
   }
 
   async findByConditionalANDCepStreetNumber(cep: any, street: any, number: any) {
@@ -66,7 +86,7 @@ export class AddressesRepository implements IAddressesRepository {
   async deleteAll(): Promise<any> {
     await prisma.address.deleteMany()
   }
-  
+
   async deleteById(id: string): Promise<void> {
     await prisma.address.delete({
       where: {
@@ -107,7 +127,7 @@ export class AddressesRepository implements IAddressesRepository {
     if (address) {
       return address
     }
-    
+
     return null
   }
 }

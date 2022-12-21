@@ -26,6 +26,7 @@ model Customers {
   cpf        String
   rg         String
   phone      String
+  userId     String
   address    Address[]
   created_at DateTime  @default(now())
   updated_at DateTime  @default(now())

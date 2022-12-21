@@ -1,10 +1,10 @@
 import { AddressesRepository } from "../../repositories/implementations/AddressesRepository";
 
-export class FindAllAddressesUseCase {
+export class FindAllAddressesByCustomerIdUseCase {
   constructor(private addressesRepository: AddressesRepository) {}
 
-  async execute(id_user: string) {
-    const addresses = this.addressesRepository.findAll(id_user)
+  async execute(customer_id: string) {
+    const addresses = this.addressesRepository.findAllByCustomerId(customer_id)
 
     return addresses
   }

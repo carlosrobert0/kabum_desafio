@@ -18,6 +18,7 @@ export class CustomersRepository implements ICustomersRepository {
     cpf, 
     name, 
     phone,
+    userId,
     rg
   }: CustomerDTO): Promise<any> {
     if (address) {
@@ -28,6 +29,7 @@ export class CustomersRepository implements ICustomersRepository {
           cpf,
           rg,
           phone,
+          userId,
           address: {
             create: [
               {
@@ -54,7 +56,8 @@ export class CustomersRepository implements ICustomersRepository {
           birthDate,
           cpf,
           rg,
-          phone
+          phone,
+          userId
         },
         include: {
           address: true
@@ -82,8 +85,12 @@ export class CustomersRepository implements ICustomersRepository {
     return null
   }
 
-  async findAll(): Promise<any> {
+  async findAll(id_user: string): Promise<any> {
+    
     const customers = await prisma.customers.findMany({
+      where: {
+        userId: `${id_user}`
+      },
       include: {
         address: true
       },
@@ -92,6 +99,16 @@ export class CustomersRepository implements ICustomersRepository {
     if (customers) {
       return customers
     }
+  }
+
+  async findById(id: string): Promise<any> {
+    const response = await prisma.customers.findUnique({
+      where: {
+        id
+      }
+    }) 
+    
+    return response
   }
 
   async deleteById(id: string): Promise<void> {

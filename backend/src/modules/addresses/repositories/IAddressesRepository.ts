@@ -18,7 +18,8 @@ interface IAddressesRepository {
     state,
     customer_id 
   }: AddressDTO): Promise<void>;
-  findAll(): Promise<AddressDTO[]>
+  findAll(id_user: string): Promise<AddressDTO[]>
+  findAllByCustomerId(customer_id: string): Promise<AddressDTO[]>
   findById(id: string): Promise<AddressDTO | null>; 
   findByConditionalANDCepStreetNumber(cep: string, street: string, number: number): Promise<any>
   deleteAll(): Promise<void>

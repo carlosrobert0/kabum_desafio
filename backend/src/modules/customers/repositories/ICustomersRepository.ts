@@ -13,6 +13,7 @@ interface CustomerDTO {
   cpf: string
   rg: string
   phone: string
+  userId: string
   address?: Address[] | any
 }
 
@@ -23,13 +24,15 @@ interface ICustomersRepository {
     birthDate, 
     cpf, 
     rg, 
-    phone 
+    phone,
+    userId,
   }: CustomerDTO): Promise<void>;
   findByCpf(cpf: string): Promise<CustomerDTO | null>; 
-  findAll(): Promise<CustomerDTO[]>
+  findAll(id_user: string): Promise<CustomerDTO[]>
   deleteAll(): Promise<void>
   deleteById(id: string): Promise<void>
   updateById(id: string, data: CustomerDTO): Promise<void>
+  findById(id: string): Promise<CustomerDTO>
 }
 
 export { CustomerDTO, ICustomersRepository }

@@ -13,15 +13,17 @@ export class CreateCustomerController {
       phone,
       address
     } = request.body
+    
+    const { id_user } = request
 
     try {
       const result = await this.createCustomerUseCase.execute({
-        name, birthDate, cpf, rg, phone, address
+        name, birthDate, cpf, rg, phone, userId: id_user, address
       })
 
       return response.json(result)
     } catch (error) {
-      console.log(error)
+      
     }
   }
 }

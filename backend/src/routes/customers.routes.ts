@@ -8,11 +8,16 @@ import { updateCustomerByIdController } from '../modules/customers/useCases/upda
 import { findCustomerByCpfController } from '../modules/customers/useCases/findCustomerByCpf'
 
 import { ensureAuthenticateUser } from '../middlewares/ensureAuthenticateUser'
+import { findCustomerByIdController } from '../modules/customers/useCases/findCustomerById'
 
 const customersRoutes = Router()
 
 customersRoutes.get("/", ensureAuthenticateUser, (request, response) => {
   return findAllCustomersController.handle(request, response)
+})
+
+customersRoutes.get("/:id", ensureAuthenticateUser, (request, response) => {
+  return findCustomerByIdController.handle(request, response)
 })
 
 customersRoutes.get("/:cpf", ensureAuthenticateUser, (request, response) => {

@@ -9,6 +9,7 @@ import { updateAddressByIdController } from "../modules/addresses/useCases/updat
 import { findAddressByIdController } from "../modules/addresses/useCases/findAllAddressById"
 
 import { ensureAuthenticateUser } from "../middlewares/ensureAuthenticateUser"
+import { findAllAddressesByCustomerIdController } from "../modules/addresses/useCases/findAllAddressesByCustomerId"
 
 const addressesRoutes = Router()
 
@@ -18,6 +19,10 @@ addressesRoutes.get("/", ensureAuthenticateUser, (request, response) => {
 
 addressesRoutes.get("/:id", ensureAuthenticateUser, (request, response) => {
   findAddressByIdController.handle(request, response)
+})
+
+addressesRoutes.get("/customerId/:customer_id", ensureAuthenticateUser, (request, response) => {
+  findAllAddressesByCustomerIdController.handle(request, response)
 })
 
 addressesRoutes.post("/", ensureAuthenticateUser, (request, response) => {
