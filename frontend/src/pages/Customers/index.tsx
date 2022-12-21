@@ -25,7 +25,14 @@ export function Customers() {
     let deleteCustomer = confirm("Deseja excluir o cliente?")
 
     deleteCustomer && await deleteCustomerById(id)
+    refetch()
   }
+
+  useEffect(() => {
+    if (data) {
+      window.location.href = window.location.href
+    }
+  }, [])
 
   return (
     <CustomersContainer>

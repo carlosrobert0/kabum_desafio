@@ -10,6 +10,7 @@ import { ButtonSubmit, LoginContainer, WrapperInput } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { queryClient } from "../../../services/queryClient";
 import { updateCustomer, useUpdateCustomerById } from "../../../services/hooks/useUpdateCustomerById";
+import { useCustomerById } from "../../../services/hooks/useCustomerById";
 
 const schema = yup.object({
   name: yup.string().required('O nome é obrigatório.'),
@@ -35,7 +36,7 @@ export function UpdateCustomer() {
   if (id) {
     idParams = id
   }
-
+  
   async function handleUpdateCustomer(customer: UpdateCustomer) {
     try {
       await updateCustomer(idParams, customer)

@@ -6,6 +6,7 @@ import { Address } from "./useCustomers"
 interface CreateAddress extends Omit<Address, 'id'> { }
 
 const token = localStorage.getItem('@Auth:token')
+
 export async function createAddress({
   cep,
   city,

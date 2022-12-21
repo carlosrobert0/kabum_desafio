@@ -21,19 +21,24 @@ export function Addresses() {
   const navigate = useNavigate()
   const { id } = useParams()
   let addresses: any
+  let refresh: any
 
   if (id) {
-    const { data } = useAddressesByCustomerId(id)
+    const { data, refetch } = useAddressesByCustomerId(id)
     addresses = data
+    refresh = refetch
   } else {
-    const  { data } = useAddresses()
+    const  { data, refetch } = useAddresses()
     addresses = data
+    refresh = refetch
   }
 
   async function modalDeleteAddress(id: string) {
     let response = confirm("Deseja excluir o endereço?")
+    
     if (response) {
       await useDeleteAddressById(id)
+      refresh()
     }
   }
 
