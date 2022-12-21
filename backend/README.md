@@ -21,6 +21,9 @@ a partir do arquivo docker-compose.yml
 
 Após isso, com o container já criado no docker.
 
+Rode npx prisma migrante up 
+Para subir as migrations no banco 
+
 Rode npm run dev para executar o servidor. 
 
 Utilizei o insomnia pra ver todas rotas do servidor  
